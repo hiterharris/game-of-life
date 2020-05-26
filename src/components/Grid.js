@@ -1,31 +1,45 @@
 import React, {useState} from 'react';
 import '../App.css';
 
-const numRows = 20;
-const numCols = 20;
+import produce from 'immer';
 
-function Grid() {
-  // Initialize grid with value of zero, "dead"
-  const [grid, setGrid] = useState(() => {
+// Default rows, columns
+const numRows = 50;
+const numCols = 50;
+
+// Initialize grid with value of zero, "dead"
+const generateEmptyGrid = () => {
     const rows = [];
     for (let i = 0; i < numRows; i++) {
       rows.push(Array.from(Array(numCols), () => 0))
     }
     return rows;
-  });
+}
+
+function Grid() {
+    // Set initial grid state
+    const [grid, setGrid] = useState(() => {
+      return generateEmptyGrid();
+    });
 
   return (
     <div className="Grid" style={{gridTemplateColumns: `repeat(${numCols}, 20px)`}}>
         {grid.map((rows, i) =>
-        rows.map((col, k) =>
-            <div
-            key={`${i}-${k}`}
-            style={{
-                width: 20,
-                height: 20,
-                backgroundColor: grid[i][k] ? 'pink' : undefined,
-                border: '1px solid black'
-            }}/>
+            rows.map((col, k) =>
+                <div
+                    key={`${i}-${k}`}
+                    onClick={() => {
+                        const newGrid = produce(grid, gridCopy => {
+                            gridCopy[i][k] = gridCopy[i][k] ? 0 : 1;
+                        });
+                        setGrid(newGrid)
+                    }}
+                    style={{
+                        width: 20,
+                        height: 20,
+                        border: '1px solid black',
+                        backgroundColor: grid[i][k] ? 'black' : undefined}}
+                />
         ))}
     </div>
   );
