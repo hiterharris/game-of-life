@@ -1,11 +1,23 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import '../App.css';
 
 import produce from 'immer';
 
 // Default rows, columns
-const numRows = 50;
-const numCols = 50;
+const numRows = 25;
+const numCols = 25;
+
+// Array to represent neighbor cells
+const operations = [
+    [0, 1],
+    [0, -1],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+    [-1, -1],
+    [1, 0],
+    [-1, 0],
+]
 
 // Initialize grid with value of zero, "dead"
 const generateEmptyGrid = () => {
@@ -25,10 +37,73 @@ function Grid() {
     // Set initial state for app running
     const [running, setRunning] = useState(false);
 
+    const runningRef = useRef(running);
+    runningRef.current = running;
+
+    // Simulate state update
+    const runSimulation = useCallback(() => {
+        if (!runningRef.current) {
+            return;
+        }
+        // Update grid state from gridCopy, g = current grid
+        setGrid((g) => {
+            return produce(g, gridCopy => {
+                for (let i = 0; i < numRows; i ++) {
+                    for(let k = 0; k < numCols; k++) {
+                        // Find number of neighbors for each cell
+                        let neighbors = 0;
+                        operations.forEach(([x, y]) => {
+                            const newI = i + x;
+                            const newK = k + y;
+                            // Checking bounds of neighbors
+                            if (newI >= 0 && newI < numRows && newK >= 0 && newK < numCols) {
+                                neighbors += g[newI][newK]
+                            }
+                        })
+                        // Cell dies if neighbors < 2 or > 3
+                        if (neighbors < 2 || neighbors > 3) {
+                            gridCopy[i][k] = 0;
+                        } 
+                        // Cell born if dead and has 3 neighbors
+                        else if (g[i][k] === 0 && neighbors === 3) {
+                            gridCopy[i][k] = 1;
+                        }
+                    }
+                }
+            })
+        })
+
+        setTimeout(runSimulation, 1000)
+    }, [])
+
   return (
     <>
-        <button onClick={() => setRunning(!running)}>{running ? 'STOP' : 'START'}</button>
-        <div className="Grid" style={{gridTemplateColumns: `repeat(${numCols}, 20px)`}}>
+        <div className='buttons'>
+            <button
+                onClick={() => {
+                    setRunning(!running);
+                    if (!running) {
+                        runningRef.current = true;
+                        runSimulation();
+                    }
+                }}
+            >{running ? 'STOP' : 'START'}</button>
+
+            <button onClick={() => {
+                setGrid(generateEmptyGrid());
+            }}>CLEAR</button>
+
+            <button onClick={() => {
+                const rows = [];
+                for (let i = 0; i < numRows; i++) {
+                    rows.push(Array.from(Array(numCols), () => Math.random() > 0.5 ? 1 : 0))
+                }
+                setGrid(rows);
+            }}>RANDOM</button>
+        </div>
+
+
+        <div className="Grid" style={{gridTemplateColumns: `repeat(${numCols}, 25px)`}}>
             {grid.map((rows, i) =>
                 rows.map((col, k) =>
                     <div
@@ -40,8 +115,8 @@ function Grid() {
                             setGrid(newGrid)
                         }}
                         style={{
-                            width: 20,
-                            height: 20,
+                            width: 25,
+                            height: 25,
                             border: '1px solid black',
                             backgroundColor: grid[i][k] ? 'black' : undefined}}
                     />
