@@ -1,5 +1,6 @@
 import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
+import gridOne from '../data/grids.js';
 import '../App.css';
 
 // Default rows, columns
@@ -86,11 +87,7 @@ function Grid() {
                         runSimulation();
                     }
                 }}
-            >{running ? 'STOP' : 'START'}</button>
-
-            <button onClick={() => {
-                setGrid(generateEmptyGrid());
-            }}>CLEAR</button>
+            >{running ? 'Stop' : 'Start'}</button>
 
             <button onClick={() => {
                 const rows = [];
@@ -98,7 +95,15 @@ function Grid() {
                     rows.push(Array.from(Array(numCols), () => Math.random() > 0.5 ? 1 : 0))
                 }
                 setGrid(rows);
-            }}>RANDOM</button>
+            }}>Random</button>
+
+            <button onClick={() => {
+                setGrid(gridOne);
+            }}>Template</button>
+
+            <button onClick={() => {
+                setGrid(generateEmptyGrid());
+            }}>Clear</button>
         </div>
 
 
