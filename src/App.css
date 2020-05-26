@@ -6,9 +6,31 @@
 
 header {
   font-size: 36px;
-  margin: 2%;
+  margin: 1%;
 }
 
 .Grid {
   display: grid;
+}
+
+.buttons {
+  display: flex;
+}
+
+.buttons button {
+  margin: 5%;
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+}
+
+.Info {
+  text-align: center;
+  width: 45%;
+  margin: 2%;
+}
+
+.Info li {
+  width: 40%;
+  margin: auto;
 }

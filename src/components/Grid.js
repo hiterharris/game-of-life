@@ -1,7 +1,6 @@
 import React, {useState, useCallback, useRef} from 'react';
-import '../App.css';
-
 import produce from 'immer';
+import '../App.css';
 
 // Default rows, columns
 const numRows = 25;
@@ -17,7 +16,7 @@ const operations = [
     [-1, -1],
     [1, 0],
     [-1, 0],
-]
+];
 
 // Initialize grid with value of zero, "dead"
 const generateEmptyGrid = () => {
