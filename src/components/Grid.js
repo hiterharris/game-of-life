@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
-import gridOne from '../data/grids.js';
+import {gridOne, gridTwo, gridThree} from '../data/grids.js';
 import '../App.css';
 
 // Default rows, columns
@@ -86,6 +86,7 @@ function Grid() {
                         runningRef.current = true;
                         runSimulation();
                     }
+                    console.log(grid);
                 }}
             >{running ? 'Stop' : 'Start'}</button>
 
@@ -99,7 +100,15 @@ function Grid() {
 
             <button onClick={() => {
                 setGrid(gridOne);
-            }}>Template</button>
+            }}>Template 1</button>
+
+            <button onClick={() => {
+                setGrid(gridTwo);
+            }}>Template 2</button>
+
+            <button onClick={() => {
+                setGrid(gridThree);
+            }}>Template 3</button>
 
             <button onClick={() => {
                 setGrid(generateEmptyGrid());
