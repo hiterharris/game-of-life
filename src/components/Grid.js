@@ -19,6 +19,8 @@ function Grid() {
       return generateEmptyGrid();
     });
 
+    const [time, setTime] = useState('1000');
+
     // Set cell color
     const [color, setColor] = useState('black');
 
@@ -67,7 +69,7 @@ function Grid() {
             })
         })
 
-        setTimeout(runSimulation, 1000)
+        setTimeout(runSimulation, time)
     }, []);
 
   return (
@@ -81,7 +83,6 @@ function Grid() {
                         runningRef.current = true;
                         runSimulation();
                     }
-                    console.log(grid);
                 }}
             >{running ? 'Stop' : 'Start'}</button>
             
@@ -144,6 +145,12 @@ function Grid() {
             <button onClick={() => setColor('green')}>Green</button>
             <button onClick={() => setColor('yellow')}>Yellow</button>
             <button onClick={() => setColor('purple')}>Purple</button>
+        </div>
+
+        {/* Change speed */}
+        <div className='speed-buttons'>
+            <button onClick={() => setTime(time - 500)}>Faster</button>
+            <button onClick={() => setTime(time + 500)}>Slower</button>
         </div>
     </div>
   );

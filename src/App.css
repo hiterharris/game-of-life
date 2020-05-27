@@ -34,6 +34,17 @@ header {
   border-radius: 5px;
 }
 
+.speed-buttons {
+  text-align: center;
+}
+
+.speed-buttons button {
+  margin: 2%;
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+}
+
 .Info {
   width: 45%;
 }
