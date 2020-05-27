@@ -24,6 +24,17 @@ header {
   border-radius: 5px;
 }
 
+.color-buttons {
+  display: flex;
+}
+
+.color-buttons button {
+  margin: 2%;
+  width: 100px;
+  height: 25px;
+  border-radius: 5px;
+}
+
 .Info {
   text-align: center;
   width: 45%;
