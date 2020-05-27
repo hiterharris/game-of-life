@@ -6,7 +6,6 @@
 
 header {
   font-size: 36px;
-  margin: 1%;
 }
 
 .Grid {
@@ -36,12 +35,14 @@ header {
 }
 
 .Info {
-  text-align: center;
   width: 45%;
-  margin: 2%;
+}
+
+.Info h1 {
+  text-align: center;
 }
 
 .Info li {
-  width: 40%;
+  text-align: left;
   margin: auto;
 }

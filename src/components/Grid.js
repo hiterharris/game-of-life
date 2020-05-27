@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useRef} from 'react';
-import {gridOne, gridTwo, gridThree} from '../data/grids.js';
-import {numRows, numCols, operations} from '../data/data';
+import {numRows, numCols, operations, gridOne, gridTwo, gridThree} from '../data/data';
 import produce from 'immer';
 import '../App.css';
 

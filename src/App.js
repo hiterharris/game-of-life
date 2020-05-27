@@ -9,6 +9,7 @@ function App() {
       <header>Conway's Game of Life</header>
       <Grid />
       <Info />
+      <p>Built by <a href='https://github.com/hiterharris/game-of-life' target='_blank'>Hiter Harris</a></p>
     </div>
   );
 }
